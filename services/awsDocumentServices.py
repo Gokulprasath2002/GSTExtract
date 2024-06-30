@@ -56,7 +56,7 @@ class AwsExtractStrategy(ExtractStrategyWrapper):
 
             output = self.convert_pdf_to_img(path)
 
-            return output[0]
+            return output
 
 
 
@@ -152,9 +152,10 @@ class awsLLM(LLM):
     
 
 aws = AwsExtractStrategy()
-extracted_data = aws.extract("C:/Users\ASUS\MyWorks\Projects\GSTExtract\storage\IMG-20240601-WA0024.jpg")
-
 aws_gpt  = awsLLM('GEMINI')
 
-transformed_data = aws_gpt.getLLMResponse(extracted_data)
-print(transformed_data)
+extracted_data = aws.extract("storage\pdf_2.pdf")
+
+for i in extracted_data:
+    transformed_data = aws_gpt.getLLMResponse(i)
+    print(transformed_data)
